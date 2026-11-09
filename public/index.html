@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scope-to-Invoice</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+<header>
+  <p class="eyebrow"><small>SANDBOX DEMO</small></p>
+  <h1>Scope-to-Invoice</h1>
+  <p class="muted">Review the work you completed against the scope you agreed to.</p>
+  <ol class="steps" aria-label="Progress">
+    <li id="step-records" aria-current="step">1. Project records</li>
+    <li id="step-review">2. Charge review</li>
+    <li id="step-outcome">3. PayPal draft outcome</li>
+  </ol>
+</header>
+<main>
+  <section id="records" class="surface" aria-labelledby="records-title">
+    <h2 id="records-title" tabindex="-1">Project records</h2>
+    <p>Use synthetic records for this sandbox demo. List one agreed fixed fee in USD per line.</p>
+    <form id="compare-form">
+      <div class="sources">
+        <div>
+          <label for="agreement">Written agreement</label>
+          <textarea id="agreement" rows="4" required maxlength="8000">Brand direction workshop and summary: USD 600 fixed fee.</textarea>
+        </div>
+        <div>
+          <label for="notes">Work notes</label>
+          <textarea id="notes" rows="4" required maxlength="8000">Completed the brand direction workshop and delivered the summary. Also completed a set of social graphics at the client's request.</textarea>
+        </div>
+      </div>
+      <p id="record-status" role="status"></p>
+      <div class="actions">
+        <button id="compare" class="primary" type="submit" disabled>Compare records</button>
+        <button id="restore" type="button">Restore sample records</button>
+      </div>
+    </form>
+  </section>
+  <section id="review" class="surface" aria-labelledby="review-title" hidden>
+    <h2 id="review-title" tabindex="-1">Charge review</h2>
+    <p>Check the agreement and work notes for each charge before you include it.</p>
+    <div id="charges"></div>
+    <div class="summary">
+      <p id="selection" role="status"></p>
+      <p id="review-status" role="status"></p>
+      <div class="actions">
+        <button id="confirm" type="button" class="primary">Confirm and create sandbox draft</button>
+        <button id="edit-records" type="button">Edit project records</button>
+      </div>
+    </div>
+  </section>
+  <section id="outcome" class="surface" aria-labelledby="outcome-title" hidden>
+    <h2 id="outcome-title" tabindex="-1"></h2>
+    <div class="status" aria-live="polite" aria-atomic="true">
+      <p id="outcome-message"></p>
+      <p id="outcome-reference"></p>
+      <p id="outcome-id"></p>
+    </div>
+    <div class="summary">
+      <h3>Confirmed selection</h3>
+      <ul id="confirmed-items"></ul>
+      <p id="confirmed-total"></p>
+      <div class="actions">
+        <button id="check-status" type="button" hidden>Check draft status</button>
+      </div>
+    </div>
+  </section>
+</main>
+<template id="charge-template">
+  <article class="card">
+    <h3></h3>
+    <p class="eligibility"></p>
+    <div class="charge-controls">
+      <label class="amount-label">Proposed amount in USD</label>
+      <input class="amount" type="number" min="0" step="0.01">
+      <p><label><input class="include" type="checkbox"> Include this charge</label></p>
+    </div>
+    <details open>
+      <summary>Supporting records</summary>
+      <p class="evidence-heading">Written agreement</p>
+      <blockquote class="agreement-evidence"></blockquote>
+      <p class="evidence-heading">Work notes</p>
+      <blockquote class="work-evidence"></blockquote>
+    </details>
+  </article>
+</template>
+</body>
+</html>
